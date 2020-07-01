@@ -1,9 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap');
+
+
+body,html{
+    height: 100%;
+    --border-color-grid : 1px solid rgb(220,220,220);
+    --icon-x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z'/%3E%3C/svg%3E");
+    --icon-y: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12z'/%3E%3C/svg%3E");
+    font-family: 'Montserrat', sans-serif;
+    --color-black:rgb(0,21,20);
+    --color-red:rgb(107,5,4);
+    --color-gold:rgb(230,175,46);
+}
+
+h1{
+    color: var(--color-black);
+    font-size: 4rem;
+}
+h2{
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0 10px;
+}
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr) repeat(3, 2fr) repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr) repeat(3, 2fr) repeat(2, 1fr);
-    gap: 1px 1px;
-    grid-template-areas: ". . Title Title Title . ." "player1 player1 Buttons Buttons Buttons player2 player2" "Score1 Score1 board board board Score2 Score2" ". . board board board . ." ". . board board board . ." ". . . . . . ." ". . . . . . .";
+    gap: 1px 10px;
+    height: 100%;
+    grid-template-areas: ". . title title title . ." "player1 player1 buttons buttons buttons player2 player2" "score1 score1 board board board score2 score2" ". . board board board . ." ". . board board board . ." ". . . . . . ." ". . . . . . .";
   }
   
   .board {
@@ -13,56 +39,146 @@
     gap: 1px 1px;
     grid-template-areas: "div1 div4 div7" "div2 div5 div8" "div3 div6 div9";
     grid-area: board;
+    height:100%;
+    max-width: 100%;
+    margin: 1rem;
+
+    /* border:1px solid green; */
   }
+
+  .iconx{
+      background-image: var(--icon-x);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+     
+      
+  }
+  .icony{
+    background-image: var(--icon-y);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    
+}
   
-  .div1 { grid-area: div1; }
+  .div1 { 
+      grid-area: div1; 
+      border-right: var(--border-color-grid); 
+      border-bottom: var(--border-color-grid); 
+      
+    }
   
-  .div2 { grid-area: div2; }
+  .div2 { grid-area: div2; border-right: var(--border-color-grid);  }
   
-  .div3 { grid-area: div3; }
+  .div3 { grid-area: div3;  border-right: var(--border-color-grid);  border-top: var(--border-color-grid);  }
   
-  .div4 { grid-area: div4; }
+  .div4 { grid-area: div4; border-bottom: var(--border-color-grid); }
   
   .div5 { grid-area: div5; }
   
-  .div6 { grid-area: div6; }
+  .div6 { grid-area: div6;border-top: var(--border-color-grid);   }
   
-  .div7 { grid-area: div7; }
+  .div7 { grid-area: div7; border-left: var(--border-color-grid); border-bottom: var(--border-color-grid); }
   
-  .div8 { grid-area: div8; }
+  .div8 { grid-area: div8; border-left: var(--border-color-grid);  }
   
-  .div9 { grid-area: div9; }
+  .div9 { grid-area: div9; border-left: var(--border-color-grid); border-top: var(--border-color-grid); }
   
-  .player2 { grid-area: player2; }
+  .player2 { 
+    grid-area: player2; 
+    color: var(--color-red);
+    align-self: flex-end;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow:  14px 14px 28px #b5b5b5, 
+                 -14px -14px 28px #ffffff;
+    
+
+}
   
-  .player1 { grid-area: player1; }
+  .player1 { 
+    grid-area: player1; 
+    color: var(--color-gold); 
+    align-self: flex-end;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow:  14px 14px 28px #b5b5b5, 
+                 -14px -14px 28px #ffffff;
+
+}
   
-  .Title { grid-area: Title; }
+  .title { 
+    grid-area: title;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    font-size: 3rem;
+    font-weight: 700;
+    padding-top: 30px;
+
+}
   
-  .Score1 { grid-area: Score1; }
+  .score1 { 
+    grid-area: score1;
+    align-self: flex-start;
+    justify-self: center;
+    padding-top:20px;
+ }
   
-  .Score2 { grid-area: Score2; }
+  .score2 { 
+      grid-area: score2; 
+      align-self: flex-start;
+      justify-self: center;
+      padding-top:20px;
+  }
   
-  .Buttons {
+  .buttons {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 1px 1px;
     grid-template-areas: ". . ." "startbtn resetbtn computerbtn" ". . .";
-    grid-area: Buttons;
+    grid-area: buttons;
+  
   }
   
-  .computer { grid-area: computer; }
+  .computer { 
+      grid-area: computerbtn;
+    align-self: center;
+    justify-self: center;
+    
+    }
   
-  .Reset { grid-area: resetbtn; }
+  .reset { 
+      grid-area: resetbtn; background-color: lightseagreen;
+      align-self: center;
+      justify-self: center;
+    }
   
-  .Start { grid-area: startbtn; }
+  .start { 
+      grid-area: startbtn; background-color: lime;
+      align-self: center;
+      justify-self: center;
+    }
 
+.button{
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow:  3px 3px 5px #b5b5b5, 
+                 -3px -3px 5px #ffffff;
+    padding:10px;
+    color: var(--color-black)
+    
 
+}
 
-
-  .board-grid-container * { 
-    border: 1px solid red;
-    position: relative;
-   }
-   
+.button:active{
+    border-radius: 16px;
+background: #ffffff;
+box-shadow: inset 5px 5px 9px #cacaca, 
+            inset -5px -5px 9px #ffffff;
+}
+.button:hover{
+    background: #f5f5f5;
+}
