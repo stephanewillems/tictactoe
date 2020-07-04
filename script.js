@@ -77,7 +77,8 @@ const Domcontrol = (function(){
         if(Object.getOwnPropertyNames(playerOne).length !== 0){
             playerOneTag.innerHTML = `<h2> ${playerOne.name}</h2>`;
             playerTwoTag.innerHTML = `<h2> ${playerTwo.name}</h2>`;
-            console.log("player one starts");
+            playerOneTag.classList.add('turn');
+            
         }else{
             playerOneTag.innerHTML = `<h2>Player One</h2>`;
             playerTwoTag.innerHTML = `<h2>Player Two</h2>`;
@@ -101,6 +102,8 @@ const Domcontrol = (function(){
         gridEl.forEach((item)=>{
                 item.classList.remove('iconx');
                 item.classList.remove('icony');
+                item.classList.remove('bgGold');
+                item.classList.remove('bgRed');
         }) 
     }
     //GETTERS
@@ -149,7 +152,7 @@ const Gamelogic = (function(){
 
         if(Domcontrol.getStart()){
             
-
+            //push value of clicked data-index into array
             if(valOne().turn &&  !(e.target.matches('.iconx'))){
                 console.log(`${valOne().name} clicked on ${e.target.dataset.board}`);
                 e.target.classList.add('iconx');
@@ -180,15 +183,17 @@ const Gamelogic = (function(){
     //check who's turn it is.
     function _turnBase(){
         if(valOne().turn){
-            console.log("turn player two")
+           //console.log("turn player two")
             valOne().turn = false;
             valTwo().turn = true;
-            Domcontrol.playerTwoTag.classList.toggle('turn');
+            Domcontrol.playerTwoTag.classList.add('turn');
+            Domcontrol.playerOneTag.classList.remove('turn');
         } else if(valTwo().turn) {
-            console.log("turn player one")
+           // console.log("turn player one")
             valTwo().turn = false;
             valOne().turn = true;
-            Domcontrol.playerOneTag.classList.toggle('turn');
+            Domcontrol.playerTwoTag.classList.remove('turn');
+            Domcontrol.playerOneTag.classList.add('turn');
         }
     }
  //winning values are => 
