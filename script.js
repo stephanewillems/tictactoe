@@ -44,7 +44,7 @@ const Domcontrol = (function(){
     const playerTwoTag = document.querySelector(".player2");
     const counterP1 =  document.querySelector('.counterP1');
     const counterP2 =  document.querySelector('.counterP2');
-    const gridEl = document.querySelectorAll('.board');
+    const gridEl = document.querySelectorAll('.board > div');
     
 
     //bind events
@@ -54,7 +54,6 @@ const Domcontrol = (function(){
         //bind x
         //bind O
         // bind AI
-
 
 
     //create a player PRIVATE FUNCTION
@@ -78,6 +77,7 @@ const Domcontrol = (function(){
         if(Object.getOwnPropertyNames(playerOne).length !== 0){
             playerOneTag.innerHTML = `<h2> ${playerOne.name}</h2>`;
             playerTwoTag.innerHTML = `<h2> ${playerTwo.name}</h2>`;
+            console.log("player one starts");
         }else{
             playerOneTag.innerHTML = `<h2>Player One</h2>`;
             playerTwoTag.innerHTML = `<h2>Player Two</h2>`;
@@ -90,8 +90,18 @@ const Domcontrol = (function(){
         playerOne = {};
         playerTwo = {};
         console.log("reset!");
+        _removeClasses();
+        Gamelogic.resetArr();
         _render();
         
+    }
+
+
+    function _removeClasses(){
+        gridEl.forEach((item)=>{
+                item.classList.remove('iconx');
+                item.classList.remove('icony');
+        }) 
     }
     //GETTERS
     function getStart(){
@@ -101,9 +111,12 @@ const Domcontrol = (function(){
     function getPlayerOne(){
             return playerOne;
     }
+
     function getPlayerTwo(){
         return playerTwo;
-}
+    }
+
+
 
     return{
         logconsole,
@@ -111,7 +124,9 @@ const Domcontrol = (function(){
         getPlayerTwo,
         playerTwo,
         getStart,
-        gridEl
+        gridEl,
+        playerOneTag,
+        playerTwoTag
     };
 })()
 
@@ -120,38 +135,98 @@ const Domcontrol = (function(){
 
 const Gamelogic = (function(){
 
-    let boardFields = [];
+    let scoreOne = [];
+    let scoreTwo = [];
     //get value from PlayerOne;
     let valOne = () => Domcontrol.getPlayerOne();
     let valTwo = () => Domcontrol.getPlayerTwo();
     Domcontrol.gridEl.forEach((item)=>{item.addEventListener("click",_gridPlay);});
 
+
     //CLICK on grid WHEN started PRIVATE function
     function _gridPlay(e){
+        
+
         if(Domcontrol.getStart()){
+            
 
+            if(valOne().turn &&  !(e.target.matches('.iconx'))){
+                console.log(`${valOne().name} clicked on ${e.target.dataset.board}`);
+                e.target.classList.add('iconx');
+                e.target.classList.add('bgGold');
+                scoreOne.push(e.target.dataset.board);
+                console.log(`PlayerOne =${scoreOne}`);
                 
-           console.log(`${valOne().name} clicked on ${e.target.dataset.board}`);
 
+            }
+            if(valTwo().turn &&  !(e.target.matches('.icony'))){
+                console.log(`${valTwo().name} clicked on ${e.target.dataset.board}`);
+                e.target.classList.add('icony');
+                scoreTwo.push(e.target.dataset.board);
+                console.log(`PlayerTwo =${scoreTwo}`);
+                console.log(Domcontrol.playerTwoTag);
+                e.target.classList.add('bgRed');
+                
+            }
+            _turnBase();
+            
+        
 
         }else{
             console.log("not started yet");
         }      
 
-}
+    }
+    //check who's turn it is.
+    function _turnBase(){
+        if(valOne().turn){
+            console.log("turn player two")
+            valOne().turn = false;
+            valTwo().turn = true;
+            Domcontrol.playerTwoTag.classList.toggle('turn');
+        } else if(valTwo().turn) {
+            console.log("turn player one")
+            valTwo().turn = false;
+            valOne().turn = true;
+            Domcontrol.playerOneTag.classList.toggle('turn');
+        }
+    }
+ //winning values are => 
+            //[1,2,3] || [4,5,6] || [7,8,9]
+            //[1,4,7] || [2,5,8] || [3,6,9]
+            //[1,4,7] || [2,5,8] || [3,6,9]
+            //[1,5,9] || [2,6,7] 
+            //put winning values in array en check if array of x's or O's 
+            //values are in the winning arays.
+    function _checkSolution(arr){
+           
+          for(let i = 0; i<arr.length;i++){
+              //if values of winning array are found in player array WON!
+          }
+    }
 
+    function resetArr(){
+        scoreOne = [];
+        scoreTwo = [];
+        return {
+            scoreOne, scoreTwo
+        }
+    }
+
+
+    //getters
     function getvalOne(){
         return valOne,valTwo;
     }
-   function useStart(){
-      console.log(Domcontrol.getStart());
-   }
+
+
+
 
     return {
-        useStart : useStart,
         valOne,
         valTwo,
-        getvalOne
+        getvalOne,
+        resetArr
 
     }
 
