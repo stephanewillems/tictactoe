@@ -75,18 +75,17 @@ const Domcontrol = (function () {
 
 
     function _resetGame() {
-        start = false;
-        ai = false;
-        playerOne = {};
-        playerTwo = {};
-        console.log("reset!");
         if (document.querySelector('.board').classList.contains('pyro')) {
             _removeFireworks();
         } else {
             console.log("no fireworks yet");
         }
+        start = false;
+        ai = false;
+        playerOne = {};
+        playerTwo = {};
+        console.log("reset!");
         _removeClasses();
-        //console.log(counterP2);
         Gamelogic.resetArr();
         _render();
 
@@ -366,13 +365,13 @@ const Gamelogic = (function () {
 })()
 
 
-
+/// STILL NEED TO WRITE AI
 
 const iaEngine = (function(){
 
     const aiBtn = document.querySelector(".computer");
 
-    aiBtn.addEventListener("click", Domcontrol.aiPlayer);
+    //aiBtn.addEventListener("click", Domcontrol.aiPlayer);
 
     if(Domcontrol.getStart() === true && Domcontrol.getIA() === true){
 
