@@ -84,6 +84,8 @@ const Domcontrol = (function () {
         ai = false;
         playerOne = {};
         playerTwo = {};
+        counterP1.innerHTML ="";
+        counterP2.innerHTML="";
         console.log("reset!");
         _removeClasses();
         Gamelogic.resetArr();
@@ -192,10 +194,10 @@ const Gamelogic = (function () {
     //CLICK on grid WHEN started PRIVATE function
     function _gridPlay(e) {
         console.log("test clicked");
-        if (Domcontrol.getStart() === true && Domcontrol.getIA() === false) {
+        if (Domcontrol.getStart() === true) {
 
             //push value of clicked data-index into array
-            if (valOne().turn && !(e.target.matches('.iconx'))) {
+            if (valOne().turn && !(e.target.matches('.iconx')) && !(e.target.matches('.icony'))) {
                 e.target.classList.add('iconx');
                 //e.target.classList.add('bgGold');
                 scoreOne.push(e.target.dataset.board);
@@ -221,7 +223,7 @@ const Gamelogic = (function () {
 
 
             }
-            if (valTwo().turn && !(e.target.matches('.icony'))) {
+            if (valTwo().turn && !(e.target.matches('.icony')) && !(e.target.matches('.iconx'))) {
 
                 e.target.classList.add('icony');
                 scoreTwo.push(e.target.dataset.board);
@@ -294,21 +296,21 @@ const Gamelogic = (function () {
         let res7 = newArray.filter(f => win7.includes(f));
         let res8 = newArray.filter(f => win8.includes(f));
 
-        if (JSON.stringify(res) === JSON.stringify(win)) {
+        if (JSON.stringify(res.sort()) === JSON.stringify(win)) {
             return win;
-        } else if (JSON.stringify(res2) === JSON.stringify(win2)) {
+        } else if (JSON.stringify(res2.sort()) === JSON.stringify(win2)) {
             return win2;
-        } else if (JSON.stringify(res3) === JSON.stringify(win3)) {
+        } else if (JSON.stringify(res3.sort()) === JSON.stringify(win3)) {
             return win3;
-        } else if (JSON.stringify(res4) === JSON.stringify(win4)) {
+        } else if (JSON.stringify(res4.sort()) === JSON.stringify(win4)) {
             return win4;
-        } else if (JSON.stringify(res5) === JSON.stringify(win5)) {
+        } else if (JSON.stringify(res5.sort()) === JSON.stringify(win5)) {
             return win5;
-        } else if (JSON.stringify(res6) === JSON.stringify(win6)) {
+        } else if (JSON.stringify(res6.sort()) === JSON.stringify(win6)) {
             return win6;
-        } else if (JSON.stringify(res7) === JSON.stringify(win7)) {
+        } else if (JSON.stringify(res7.sort()) === JSON.stringify(win7)) {
             return win7
-        } else if (JSON.stringify(res8) === JSON.stringify(win8)) {
+        } else if (JSON.stringify(res8.sort()) === JSON.stringify(win8)) {
             return win8;
         }
     }
@@ -367,20 +369,6 @@ const Gamelogic = (function () {
 
 /// STILL NEED TO WRITE AI
 
-const iaEngine = (function(){
-
-    const aiBtn = document.querySelector(".computer");
-
-    //aiBtn.addEventListener("click", Domcontrol.aiPlayer);
-
-    if(Domcontrol.getStart() === true && Domcontrol.getIA() === true){
-
-        console.log('ai');
-
-
-
-
-    }
 
 
 
@@ -388,17 +376,3 @@ const iaEngine = (function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-})()
